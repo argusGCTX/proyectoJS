@@ -1,0 +1,675 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Curiosidades | Brilla&amp;Comparte</title>
+    <style>
+        * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Trebuchet MS', sans-serif;
+    background: linear-gradient(
+        120deg,
+        #e1f2ff,
+        #f8e3ff,
+        #ffe2f3
+    );
+    padding: 20px;
+    color: #401879;
+}
+
+/* BARRA SUPERIOR */
+
+.navbar {
+    position: static;
+    background: linear-gradient(90deg, #9162d5, #bd83d9);
+    padding: 18px 35px;
+    border-radius: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 15px;
+    box-shadow: 0 4px 12px #c9a5e6;
+    margin-bottom: 20px;
+}
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: white;
+}
+.logo h2 {
+    font-size: 23px;
+}
+.simbolos {
+    font-size: 30px;
+}
+.flor-logo {
+    font-size: 40px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+.menu a {
+    color: white;
+    text-decoration: none;
+    font-weight: bold;
+    transition: 0.3s;
+}
+.menu a:hover {
+    color: #ffe1f3;
+    transform: translateY(-3px);
+}
+.menu span {
+    font-size: 25px;
+    color: #35145e;
+}
+/* PETALOS CAYENDO */
+.petalo {
+    position: fixed;
+    top: -50px;
+    z-index: 1000;
+    pointer-events: none;
+    font-size: 23px;
+    animation: caer linear infinite;
+}
+
+@keyframes caer {
+    0% {
+        transform: translateY(-50px) rotate(0deg);
+        opacity: 0;
+    }
+
+    10% {
+        opacity: 1;
+    }
+
+    90% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+/* ESTRELLITAS CAYENDO */
+.estrellita {
+    position: fixed;
+    top: -40px;
+    z-index: 1000;
+    pointer-events: none;
+    color: #ffbb00;
+    font-size: 22px;
+    text-shadow: 0 0 8px #ffc800;
+    animation: caerEstrella linear infinite;
+}
+
+@keyframes caerEstrella {
+    0% {
+        transform: translateY(-40px) rotate(0deg);
+        opacity: 0;
+    }
+
+    15% {
+        opacity: 1;
+    }
+
+    85% {
+        opacity: 1;
+    }
+
+    100% {
+        transform: translateY(110vh) rotate(360deg);
+        opacity: 0;
+    }
+}
+
+.preguntas-contenedor {
+    width: min(900px, 100%);
+    margin: 45px auto;
+}
+
+.preguntas-encabezado {
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.preguntas-encabezado h1 {
+    margin-bottom: 8px;
+    color: #6734a1;
+    font-size: clamp(30px, 5vw, 42px);
+}
+
+.preguntas-encabezado p {
+    color: #735d85;
+    font-size: 17px;
+}
+
+.estado-preguntas {
+    margin: -10px 0 18px;
+    color: #735d85;
+    text-align: center;
+}
+
+.estado-preguntas.error {
+    color: #a23655;
+}
+
+.pregunta-panel,
+.pregunta-tarjeta {
+    padding: 24px;
+    border: 1px solid #eadcf6;
+    border-radius: 20px;
+    background: rgba(255, 255, 255, 0.88);
+    box-shadow: 0 8px 24px rgba(103, 52, 161, 0.1);
+}
+
+.pregunta-panel {
+    margin-bottom: 30px;
+}
+
+.pregunta-panel h2,
+.pregunta-lista h2 {
+    margin-bottom: 16px;
+    color: #512780;
+}
+
+.pregunta-formulario {
+    display: grid;
+    gap: 12px;
+}
+
+.pregunta-formulario input,
+.pregunta-formulario textarea,
+.respuesta-formulario textarea {
+    width: 100%;
+    padding: 13px 15px;
+    border: 1px solid #d9c5eb;
+    border-radius: 12px;
+    background: #fff;
+    color: #401879;
+    font: inherit;
+}
+
+.pregunta-formulario textarea,
+.respuesta-formulario textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.pregunta-formulario input:focus,
+.pregunta-formulario textarea:focus,
+.respuesta-formulario textarea:focus {
+    border-color: #9162d5;
+    outline: 3px solid rgba(145, 98, 213, 0.18);
+}
+
+.pregunta-boton {
+    justify-self: start;
+    padding: 11px 20px;
+    border: 0;
+    border-radius: 999px;
+    background: linear-gradient(90deg, #8050c5, #a76acb);
+    color: #fff;
+    font: inherit;
+    font-weight: bold;
+    cursor: pointer;
+    transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.pregunta-boton:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 5px 12px rgba(103, 52, 161, 0.22);
+}
+
+.pregunta-lista {
+    display: grid;
+    gap: 16px;
+}
+
+.pregunta-lista-cabecera {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+.pregunta-lista-cabecera h2 {
+    margin-bottom: 0;
+}
+
+.preguntas-vacio {
+    padding: 28px 20px;
+    border: 1px dashed #cdb3e5;
+    border-radius: 16px;
+    color: #735d85;
+    background: rgba(255, 255, 255, 0.6);
+    text-align: center;
+}
+
+.pregunta-tarjeta h3 {
+    margin: 12px 0 8px;
+    color: #512780;
+    font-size: 20px;
+}
+
+.pregunta-tarjeta p {
+    color: #5e4b70;
+    line-height: 1.6;
+}
+
+.pregunta-autor {
+    color: #856da0;
+    font-size: 14px;
+}
+
+.respuesta-formulario {
+    display: grid;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid #eee3f7;
+}
+
+.respuesta-desplegable {
+    margin-top: 14px;
+}
+
+.responder-boton {
+    display: inline-block;
+    padding: 9px 17px;
+    border-radius: 999px;
+    background: #f0e5fa;
+    color: #6734a1;
+    font-weight: bold;
+    cursor: pointer;
+    list-style: none;
+}
+
+.responder-boton::-webkit-details-marker {
+    display: none;
+}
+
+.respuesta-desplegable[open] .responder-boton {
+    background: #e8d8f6;
+}
+
+.respuestas-lista {
+    display: grid;
+    gap: 10px;
+    margin-top: 18px;
+}
+
+.respuesta-item {
+    padding: 14px;
+    border-radius: 12px;
+    background: #f8f2fc;
+}
+
+.respuesta-item p {
+    margin-top: 6px;
+}
+
+.eliminar-boton {
+    margin-top: 10px;
+    padding: 7px 12px;
+    border: 1px solid #e8b8c5;
+    border-radius: 999px;
+    background: #fff4f6;
+    color: #a23655;
+    font: inherit;
+    font-size: 14px;
+    cursor: pointer;
+}
+
+.ver-mas-contenedor {
+    display: flex;
+    justify-content: center;
+    margin-top: 6px;
+}
+
+@media (max-width: 600px) {
+    .preguntas-contenedor {
+        margin: 30px auto;
+    }
+
+    .pregunta-panel,
+    .pregunta-tarjeta {
+        padding: 18px;
+    }
+}
+    </style>
+</head>
+<body>
+    <!-- PETALOS DECORATIVOS -->
+<div class="petalo" style="left: 5%; animation-duration: 8s;">🌸</div>
+<div class="petalo" style="left: 15%; animation-duration: 11s; animation-delay: 2s;">🌷</div>
+<div class="petalo" style="left: 25%; animation-duration: 9s; animation-delay: 4s;">🌸</div>
+<div class="petalo" style="left: 35%; animation-duration: 12s; animation-delay: 1s;">🌷</div>
+<div class="petalo" style="left: 45%; animation-duration: 10s; animation-delay: 3s;">🌸</div>
+<div class="petalo" style="left: 55%; animation-duration: 8s; animation-delay: 5s;">🌷</div>
+<div class="petalo" style="left: 65%; animation-duration: 11s; animation-delay: 2s;">🌸</div>
+<div class="petalo" style="left: 75%; animation-duration: 9s; animation-delay: 4s;">🌷</div>
+<div class="petalo" style="left: 85%; animation-duration: 12s; animation-delay: 1s;">🌸</div>
+<div class="petalo" style="left: 95%; animation-duration: 10s; animation-delay: 3s;">🌷</div>
+<!-- ESTRELLITAS DECORATIVAS -->
+<div class="estrellita" style="left: 8%; animation-duration: 9s;">✦</div>
+<div class="estrellita" style="left: 20%; animation-duration: 12s; animation-delay: 3s;">★</div>
+<div class="estrellita" style="left: 38%; animation-duration: 10s; animation-delay: 1s;">✧</div>
+<div class="estrellita" style="left: 50%; animation-duration: 11s; animation-delay: 4s;">✦</div>
+<div class="estrellita" style="left: 68%; animation-duration: 9s; animation-delay: 2s;">★</div>
+<div class="estrellita" style="left: 82%; animation-duration: 13s; animation-delay: 5s;">✧</div>
+<div class="estrellita" style="left: 95%; animation-duration: 10s; animation-delay: 2s;">✦</div>
+    <!-- BARRA SUPERIOR -->
+
+    <nav class="navbar">
+
+        <div class="logo">
+            <span class="simbolos">⭐ 🌸</span>
+            <h2>Brilla&Comparte</h2>
+            <span class="flor-logo"></span>
+        </div>
+
+        <div class="menu">
+            <a href="index.html">Inicio</a>
+            <a href="Brilla&Comparte 5.html">Preguntas</a>
+            <a href="Brilla&Comparte 4.html">Anécdotas</a>
+            <a href="Brilla&Comparte 2.html">Sobre el sitio</a>
+            <span>♙</span>
+        </div>
+
+    </nav>
+
+    <main class="preguntas-contenedor">
+        <header class="preguntas-encabezado">
+            <h1>Curiosidades 💡</h1>
+            <p>Pregunta algo interesante y comparte lo que sabes.</p>
+        </header>
+        <p class="estado-preguntas" id="estado-preguntas" role="status" aria-live="polite" hidden></p>
+
+        <section class="pregunta-panel" aria-labelledby="nueva-pregunta-titulo">
+            <h2 id="nueva-pregunta-titulo">Escribe tu pregunta</h2>
+            <form class="pregunta-formulario">
+                <input type="text" name="nickname" maxlength="30" placeholder="Tu apodo (opcional)">
+                <textarea name="body" maxlength="1000" placeholder="¿Qué te gustaría preguntar?" required></textarea>
+                <button class="pregunta-boton" type="submit" disabled>Publicar pregunta</button>
+            </form>
+        </section>
+
+        <section class="pregunta-lista" aria-labelledby="preguntas-recientes-titulo">
+            <div class="pregunta-lista-cabecera">
+                <h2 id="preguntas-recientes-titulo">Preguntas recientes</h2>
+            </div>
+            <p class="preguntas-vacio" id="preguntas-vacio">
+                Todavía no hay preguntas. ¡Anímate a publicar la primera! 🌱
+            </p>
+            <div id="preguntas-publicadas"></div>
+            <div class="ver-mas-contenedor">
+                <button class="pregunta-boton" id="ver-mas-preguntas" type="button" hidden>Ver más</button>
+            </div>
+        </section>
+    </main>
+
+    <template id="plantilla-pregunta">
+        <article class="pregunta-tarjeta">
+            <span class="pregunta-autor" data-pregunta-autor></span>
+            <h3 data-pregunta-texto></h3>
+            <button class="eliminar-boton" type="button" data-eliminar-pregunta>Eliminar pregunta</button>
+            <div class="respuestas-lista" data-respuestas></div>
+            <details class="respuesta-desplegable">
+                <summary class="responder-boton">Responder</summary>
+                <form class="respuesta-formulario">
+                    <textarea name="answer" maxlength="1000" placeholder="Escribe tu respuesta..." aria-label="Escribe tu respuesta" required></textarea>
+                    <button class="pregunta-boton" type="submit">Enviar respuesta</button>
+                </form>
+            </details>
+        </article>
+    </template>
+
+    <template id="plantilla-respuesta">
+        <article class="respuesta-item">
+            <span class="pregunta-autor" data-respuesta-autor></span>
+            <p data-respuesta-texto></p>
+            <button class="eliminar-boton" type="button" data-eliminar-respuesta>Eliminar respuesta</button>
+        </article>
+    </template>
+
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        const SUPABASE_URL = "https://yytnuudtyjkyrqhhibpf.supabase.co";
+        const SUPABASE_PUBLISHABLE_KEY = "sb_publishable_qk-1pRVrKSAHi1eXa0XPVA_vtafU_EI";
+        const CATEGORY = "curiosidades";
+        const PAGE_SIZE = 5;
+
+        const statusElement = document.querySelector("#estado-preguntas");
+        const questionList = document.querySelector("#preguntas-publicadas");
+        const emptyState = document.querySelector("#preguntas-vacio");
+        const loadMoreButton = document.querySelector("#ver-mas-preguntas");
+        const questionForm = document.querySelector(".pregunta-formulario");
+        const answerTemplate = document.querySelector("#plantilla-respuesta");
+        let supabaseClient = null;
+        let currentUser = null;
+        let loadedCount = 0;
+        let hasMore = true;
+        let loading = false;
+        let refreshQueued = false;
+
+        function setStatus(message, isError) {
+            statusElement.textContent = message;
+            statusElement.hidden = !message;
+            statusElement.classList.toggle("error", Boolean(isError));
+        }
+
+        function showError(action, error) {
+            console.error(action, error);
+            setStatus(`${action}: ${error.message || error}`, true);
+        }
+
+        async function getAnonymousUser(client) {
+            const { data: sessionData, error: sessionError } = await client.auth.getSession();
+            if (sessionError) throw sessionError;
+            if (sessionData.session) return sessionData.session.user;
+
+            const { data, error } = await client.auth.signInAnonymously();
+            if (error) throw error;
+            return data.user;
+        }
+
+        function renderAnswer(answer) {
+            const element = answerTemplate.content.firstElementChild.cloneNode(true);
+            element.dataset.answerId = answer.id;
+            element.querySelector("[data-respuesta-autor]").textContent = answer.nickname || "Anónimo";
+            element.querySelector("[data-respuesta-texto]").textContent = answer.body;
+            element.querySelector("[data-eliminar-respuesta]").hidden = answer.user_id !== currentUser.id;
+            return element;
+        }
+
+        function renderQuestion(question) {
+            const element = document.querySelector("#plantilla-pregunta").content.firstElementChild.cloneNode(true);
+            element.dataset.questionId = question.id;
+            element.querySelector("[data-pregunta-autor]").textContent = question.nickname || "Anónimo";
+            element.querySelector("[data-pregunta-texto]").textContent = question.body;
+            element.querySelector("[data-eliminar-pregunta]").hidden = question.user_id !== currentUser.id;
+
+            const answers = element.querySelector("[data-respuestas]");
+            (question.answers || []).forEach((answer) => answers.append(renderAnswer(answer)));
+            return element;
+        }
+
+        async function loadQuestions(reset) {
+            if (loading) {
+                if (reset) refreshQueued = true;
+                return;
+            }
+            if (reset) {
+                loadedCount = 0;
+                hasMore = true;
+                questionList.replaceChildren();
+                emptyState.hidden = false;
+            } else if (!hasMore) {
+                return;
+            }
+
+            loading = true;
+            loadMoreButton.disabled = true;
+            try {
+                const { data, error, count } = await supabaseClient
+                    .from("questions")
+                    .select("id, nickname, body, user_id, created_at, answers(id, nickname, body, user_id, created_at)", { count: "exact" })
+                    .eq("category", CATEGORY)
+                    .order("created_at", { ascending: false })
+                    .range(loadedCount, loadedCount + PAGE_SIZE - 1);
+                if (error) throw error;
+
+                data.forEach((question) => questionList.append(renderQuestion(question)));
+                loadedCount += data.length;
+                hasMore = count === null ? data.length === PAGE_SIZE : loadedCount < count;
+                emptyState.hidden = loadedCount > 0;
+                loadMoreButton.hidden = !hasMore || loadedCount === 0;
+                setStatus("", false);
+            } finally {
+                loading = false;
+                loadMoreButton.disabled = false;
+                if (refreshQueued) {
+                    refreshQueued = false;
+                    await loadQuestions(true);
+                }
+            }
+        }
+
+        if (
+            SUPABASE_URL.startsWith("PEGA_AQUI") ||
+            SUPABASE_PUBLISHABLE_KEY.startsWith("PEGA_AQUI")
+        ) {
+            setStatus("Falta configurar la URL y la clave Publishable de Supabase en este archivo.", true);
+        } else if (!window.supabase) {
+            setStatus("No se pudo cargar la librería de Supabase. Revisa tu conexión a internet e inténtalo otra vez.", true);
+        } else {
+            supabaseClient = window.supabase.createClient(SUPABASE_URL, SUPABASE_PUBLISHABLE_KEY);
+
+            async function start() {
+                try {
+                    currentUser = await getAnonymousUser(supabaseClient);
+                    await loadQuestions(true);
+                    questionForm.querySelector('button[type="submit"]').disabled = false;
+                } catch (error) {
+                    showError("No se pudieron cargar las preguntas", error);
+                }
+            }
+
+            questionForm.addEventListener("submit", async (event) => {
+                event.preventDefault();
+                if (!currentUser) {
+                    setStatus("No se pudo iniciar la sesión anónima. Revisa la configuración de Supabase.", true);
+                    return;
+                }
+
+                const button = questionForm.querySelector('button[type="submit"]');
+                const nickname = questionForm.elements.nickname.value.trim() || "Anónimo";
+                const body = questionForm.elements.body.value.trim();
+                if (!body) return;
+
+                button.disabled = true;
+                try {
+                    const { error } = await supabaseClient.from("questions").insert({
+                        category: CATEGORY,
+                        nickname,
+                        body,
+                        user_id: currentUser.id
+                    });
+                    if (error) throw error;
+                    questionForm.reset();
+                    await loadQuestions(true);
+                    setStatus("¡Pregunta publicada!", false);
+                } catch (error) {
+                    showError("No se pudo publicar la pregunta", error);
+                } finally {
+                    button.disabled = false;
+                }
+            });
+
+            questionList.addEventListener("submit", async (event) => {
+                const form = event.target;
+                if (!(form instanceof HTMLFormElement) || !form.matches(".respuesta-formulario")) return;
+                event.preventDefault();
+                if (!currentUser) {
+                    setStatus("No se pudo iniciar la sesión anónima. Revisa la configuración de Supabase.", true);
+                    return;
+                }
+
+                const question = form.closest("[data-question-id]");
+                const body = form.elements.answer.value.trim();
+                if (!question || !body) return;
+                const button = form.querySelector('button[type="submit"]');
+                button.disabled = true;
+                try {
+                    const { error } = await supabaseClient.from("answers").insert({
+                        question_id: question.dataset.questionId,
+                        nickname: "Anónimo",
+                        body,
+                        user_id: currentUser.id
+                    });
+                    if (error) throw error;
+                    await loadQuestions(true);
+                    setStatus("¡Respuesta publicada!", false);
+                } catch (error) {
+                    showError("No se pudo publicar la respuesta", error);
+                } finally {
+                    button.disabled = false;
+                }
+            });
+
+            questionList.addEventListener("click", async (event) => {
+                const target = event.target;
+                if (!(target instanceof Element)) return;
+                const deleteQuestionButton = target.closest("[data-eliminar-pregunta]");
+                const deleteAnswerButton = target.closest("[data-eliminar-respuesta]");
+                if (!deleteQuestionButton && !deleteAnswerButton) return;
+
+                const isQuestion = Boolean(deleteQuestionButton);
+                const record = (isQuestion ? deleteQuestionButton : deleteAnswerButton).closest(isQuestion ? "[data-question-id]" : "[data-answer-id]");
+                const id = isQuestion ? record.dataset.questionId : record.dataset.answerId;
+                if (!window.confirm(isQuestion ? "¿Eliminar esta pregunta y sus respuestas?" : "¿Eliminar esta respuesta?")) return;
+
+                try {
+                    const table = isQuestion ? "questions" : "answers";
+                    const { data, error } = await supabaseClient
+                        .from(table)
+                        .delete()
+                        .eq("id", id)
+                        .eq("user_id", currentUser.id)
+                        .select("id");
+                    if (error) throw error;
+                    if (!data.length) throw new Error("Solo puedes eliminar publicaciones tuyas.");
+                    await loadQuestions(true);
+                    setStatus(isQuestion ? "Pregunta eliminada." : "Respuesta eliminada.", false);
+                } catch (error) {
+                    showError("No se pudo eliminar", error);
+                }
+            });
+
+            loadMoreButton.addEventListener("click", async () => {
+                try {
+                    await loadQuestions(false);
+                } catch (error) {
+                    showError("No se pudieron cargar más preguntas", error);
+                }
+            });
+
+            start();
+        }
+    </script>
+</body>
+</html>
